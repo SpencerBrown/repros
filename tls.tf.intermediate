@@ -1,0 +1,88 @@
+// The private keys are stored UNENCRYPTED in the Terraform state file, so use this for testing only.
+
+// Create the  "public" root Certificate Authority key and cert
+
+module "public-root-ca" {
+  source = "./root-ca"
+  prefix = "public-ca"
+  subject = {
+    O  = "MongoDB"
+    OU = "Public"
+    CN = "Root CA"
+  }
+}
+
+// Create the public intermediate signing CA certificate
+
+module "public-signing-ca" {
+  source  = "./cert"
+  prefix  = "public-signing-ca"
+  ca_cert = module.public-root-ca.cert
+  ca_key  = module.public-root-ca.key
+  subject = {
+    O  = "MongoDB"
+    OU = "Public"
+    CN = "Signing CA"
+  }
+  ca_only = true
+}
+
+// Create the  "internal" root Certificate Authority key and cert
+
+module "internal-root-ca" {
+  source = "./root-ca"
+  prefix = "internal-ca"
+  subject = {
+    O  = "MongoDB"
+    OU = "Internal"
+    CN = "Root CA"
+  }
+}
+
+// Create the internal intermediate signing CA certificate
+
+module "internal-signing-ca" {
+  source  = "./cert"
+  prefix  = "internal-signing-ca"
+  ca_cert = module.internal-root-ca.cert
+  ca_key  = module.internal-root-ca.key
+  subject = {
+    O  = "MongoDB"
+    OU = "Internal"
+    CN = "Signing CA"
+  }
+  ca_only = true
+}
+
+// Create the Server key and CA-signed cert
+// in normal deployments, we would create one server cert per server, with its hostname specified
+
+module "server-cert" {
+  source  = "./cert"
+  prefix  = "server"
+  ca_cert = module.public-signing-ca.cert
+  ca_key  = module.public-signing-ca.key
+  subject = {
+    O  = "MongoDB"
+    OU = "Public"
+    CN = "Server"
+  }
+  dns_names = [
+    "mongodb-local.computer",
+  ]
+}
+
+// Create the Client key and CA-signed cert
+
+module "client-cert" {
+  source  = "./cert"
+  prefix  = "client"
+  ca_cert = module.public-signing-ca.cert
+  ca_key  = module.public-signing-ca.key
+  subject = {
+    O  = "MongoDB"
+    OU = "Public"
+    CN = "Client"
+  }
+  client_only = true
+}

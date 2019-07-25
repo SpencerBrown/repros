@@ -1,0 +1,29 @@
+# config for mongos sepcial 1-0ff
+
+processManagement:
+  fork: true
+
+systemLog:
+  destination: file
+  path: data/router.log
+#  verbosity: 1
+
+net:
+  bindIp: 127.0.0.1
+  port: 47018
+  unixDomainSocket:
+    enabled: false
+  ssl:
+#    mode: allowSSL
+    mode: preferSSL
+    allowConnectionsWithoutCertificates: true
+    PEMKeyFile: tls-certs/server-key-cert.pem
+    CAFile: tls-certs/public-ca.pem
+#    sslCipherConfig: "HIGH:!EXPORT:!aNULL@STRENGTH"
+
+security:
+  clusterAuthMode: x509
+#  keyFile: tls-certs/server.keyfile
+
+sharding:
+  configDB: cs/mongodb-local.computer:47017

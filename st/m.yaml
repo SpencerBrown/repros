@@ -1,0 +1,61 @@
+# Config file for standalone mongod
+
+processManagement:
+  fork: true
+
+storage:
+  dbPath: ../data/m
+  journal:
+    enabled: true
+  engine: wiredTiger
+  wiredTiger:
+    engineConfig:
+      cacheSizeGB: 1
+
+systemLog:
+  destination: file
+  logAppend: false
+  path: ../data/m.log
+  verbosity: 1
+
+#security:
+#  authorization: enabled
+#  enableEncryption: true
+#  encryptionKeyFile: /Users/spencer/repros/keyfile-atrest.txt
+
+#auditLog:
+#  destination: file
+#  format: JSON
+#  path: ../data/m.json
+#  filter: '{atype: "authCheck", "param.command": { $in: [ "find", "insert", "delete", "update","createUser", "dropUser", "grantRolesToUser", "revokeRolesFromUser", "createDatabase", "dropDatabase", "createCollection", "createIndex", "dropCollection", "dropIndex", "authenticate", "authCheck" ,"dropAllRolesFromDatabase", "shutdown"] }}'
+#  filter: '{ atype: {$in: ["authCheck", "authenticate"]} }'
+
+setParameter:
+  enableTestCommands: 1
+  authenticationMechanisms: SCRAM-SHA-1,MONGODB-X509,PLAIN,MONGODB-CR
+#  disableNonSSLConnectionLogging: 1
+#  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509,PLAIN
+#  authenticationMechanisms: SCRAM-SHA-256
+#  auditAuthorizationSuccess: true
+
+#operationProfiling:
+#  slowOpThresholdMs: 0
+
+net:
+  bindIp: 127.0.2.1
+  port: 27017
+  unixDomainSocket:
+    enabled: false
+  ssl:
+    mode: preferSSL
+#    PEMKeyFile: tls-certs/big-bundle.pem
+#    PEMKeyFile: tls-certs/self-signed-key-cert.pem
+    PEMKeyFile: tls-certs/server-key-cert.pem
+#    PEMKeyFile: tls-certs/server-key-cert.pem
+#    CAFile: tls-certs/ca-bundle.pem
+    CAFile: tls-certs/public-ca.pem
+    allowConnectionsWithoutCertificates: true
+#    disabledProtocols: "TLS1_0,TLS1_1"
+#  tls:
+#    logVersions: "TLS1_2"
+#    logVersions: "TLS1_0,TLS1_1,TLS1_2"

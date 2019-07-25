@@ -1,0 +1,53 @@
+# config for config server
+
+processManagement:
+  fork: true
+
+storage:
+  dbPath: data/config
+  journal:
+    enabled: true
+  engine: wiredTiger
+  wiredTiger:
+    engineConfig:
+      cacheSizeGB: 1
+
+systemLog:
+  destination: file
+  path: data/config.log
+  verbosity: 1
+
+#operationProfiling:
+#  slowOpThresholdMs: 0
+
+net:
+  bindIp: 127.0.0.1
+  port: 27019
+  unixDomainSocket:
+    enabled: false
+  ssl:
+#    mode: allowSSL
+    mode: preferSSL
+    PEMKeyFile: tls-certs/server-key-cert.pem
+    CAFile: tls-certs/public-ca.pem
+
+#auditLog:
+#  destination: file
+#  format: BSON
+#  path: data/c2.bson
+
+security:
+  authorization: enabled
+  clusterAuthMode: x509
+#  keyFile: tls-certs/server.keyfile
+
+setParameter:
+  authenticationMechanisms: SCRAM-SHA-1,PLAIN,MONGODB-X509
+
+# for CSRS enable below
+replication:
+  replSetName: cs
+#  enableMajorityReadConcern: false
+
+sharding:
+  clusterRole: configsvr
