@@ -20,14 +20,14 @@ systemLog:
 
 net:
   port: --PORT--
-  bindIp: 127.0.0.1
+  bindIp: 127.0.2.1
   unixDomainSocket:
     enabled: false
   ssl:
 #    mode: allowSSL../
     mode: preferSSL
 #    mode: requireSSL
-    PEMKeyFile: tls-certs/server-key-cert.pem
+    PEMKeyFile: tls-certs/public-server-key-cert.pem
     CAFile: tls-certs/public-ca.pem
     allowConnectionsWithoutCertificates: true
 
