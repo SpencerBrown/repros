@@ -32,9 +32,9 @@ systemLog:
 
 setParameter:
   enableTestCommands: 1
-  authenticationMechanisms: SCRAM-SHA-1,MONGODB-X509,PLAIN,MONGODB-CR
+#  authenticationMechanisms: SCRAM-SHA-1,MONGODB-X509,PLAIN,MONGODB-CR
 #  disableNonSSLConnectionLogging: 1
-#  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509,PLAIN
+  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509,PLAIN
 #  authenticationMechanisms: SCRAM-SHA-256
 #  auditAuthorizationSuccess: true
 
@@ -48,11 +48,7 @@ net:
     enabled: false
   ssl:
     mode: preferSSL
-#    PEMKeyFile: tls-certs/big-bundle.pem
-#    PEMKeyFile: tls-certs/self-signed-key-cert.pem
-    PEMKeyFile: tls-certs/server-key-cert.pem
-#    PEMKeyFile: tls-certs/server-key-cert.pem
-#    CAFile: tls-certs/ca-bundle.pem
+    PEMKeyFile: tls-certs/public-server-key-cert.pem
     CAFile: tls-certs/public-ca.pem
     allowConnectionsWithoutCertificates: true
 #    disabledProtocols: "TLS1_0,TLS1_1"
