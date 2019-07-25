@@ -35,8 +35,8 @@ net:
 
 security:
   authorization: enabled
-  keyFile: keyfiles/keyfile-atrest.txt
-#  clusterAuthMode: x509
+# keyFile: keyfiles/keyfile-atrest.txt
+  clusterAuthMode: x509
 
 setParameter:
 #  initialSyncOplogBufferPeekCacheSize: 1000

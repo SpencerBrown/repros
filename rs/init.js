@@ -68,6 +68,7 @@ tu = {
 adb = db.getSiblingDB('admin');
 adb.createUser(tu);
 
+/*
 print("\nSetting up user 'CN=Client,OU=Public,O=MongoDB', for MongoDB X.509 client certificate authentication");
 
 xdb = db.getSiblingDB('$external');
@@ -80,3 +81,4 @@ xdb.createUser(
         ]
     }
 );
+*/
