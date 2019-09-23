@@ -35,7 +35,7 @@ adb.createUser(tu);
 tdb = db.getSiblingDB('test');
 tdb.createUser(tu);
 
-print("\nSetting up user 'CN=Client,OU=Public,O=MongoDB', for MongoDB X.509 client certificate authentication");
+print("\nSetting up user 'CN=Client,OU=Public-Client,O=MongoDB', for MongoDB X.509 client certificate authentication");
 
 xdb = db.getSiblingDB('$external');
 xdb.createUser(

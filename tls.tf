@@ -68,7 +68,7 @@ module "client-cert" {
   ca_key  = module.public-root-ca.key
   subject = {
     O  = "MongoDB"
-    OU = "Public"
+    OU = "Public-Client"
     CN = "Client"
   }
   client_only = true

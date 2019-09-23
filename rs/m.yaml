@@ -29,8 +29,8 @@ net:
 #    mode: requireSSL
     PEMKeyFile: tls-certs/public-server-key-cert.pem
     CAFile: tls-certs/public-ca.pem
-    clusterFile: tls-certs/internal-server-key-cert.pem
-    clusterCAFile: tls-certs/internal-ca.pem 
+#    clusterFile: tls-certs/internal-server-key-cert.pem
+#    clusterCAFile: tls-certs/internal-ca.pem
     allowConnectionsWithoutCertificates: true
 
 security:
