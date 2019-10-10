@@ -14,6 +14,6 @@ mongo --nodb sh/init.js
 
 mongos -f sh/${CONFIG}router.yaml
 
-mongo sh/init-2.js
+mongo --host mongodb-local.computer sh/init-2.js
 
 mongo --username admin --password tester --authenticationDatabase admin --host mongodb-local.computer:27017

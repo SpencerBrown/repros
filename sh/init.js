@@ -73,7 +73,7 @@ while (true) {
 
 print("\nReplica set healthy, primary is " + ismast.primary);
 
-print("\nSetting up admin user");
+print("\nSetting up shard local admin user");
 
 d1_db.createUser(au);
 
@@ -94,6 +94,6 @@ while (true) {
 
 print("\nReplica set healthy, primary is " + ismast.primary);
 
-print("\nSetting up admin user");
+print("\nSetting up shard local admin user");
 
 d2_db.createUser(au);
