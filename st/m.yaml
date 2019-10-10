@@ -18,8 +18,8 @@ systemLog:
   path: ../data/m.log
   verbosity: 1
 
-#security:
-#  authorization: enabled
+security:
+  authorization: enabled
 #  enableEncryption: true
 #  encryptionKeyFile: /Users/spencer/repros/keyfile-atrest.txt
 
@@ -34,7 +34,7 @@ setParameter:
   enableTestCommands: 1
 #  authenticationMechanisms: SCRAM-SHA-1,MONGODB-X509,PLAIN,MONGODB-CR
 #  disableNonSSLConnectionLogging: 1
-  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509,PLAIN
+  authenticationMechanisms: SCRAM-SHA-1,MONGODB-X509,PLAIN
 #  authenticationMechanisms: SCRAM-SHA-256
 #  auditAuthorizationSuccess: true
 
