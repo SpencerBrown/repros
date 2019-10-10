@@ -4,7 +4,7 @@ processManagement:
   fork: true
 
 storage:
-  dbPath: data/config
+  dbPath: ../data/config
   journal:
     enabled: true
   engine: wiredTiger
@@ -14,7 +14,7 @@ storage:
 
 systemLog:
   destination: file
-  path: data/config.log
+  path: ../data/config.log
   verbosity: 1
 
 #operationProfiling:
@@ -34,7 +34,7 @@ net:
 #auditLog:
 #  destination: file
 #  format: BSON
-#  path: data/c2.bson
+#  path: ../data/c2.bson
 
 security:
   authorization: enabled

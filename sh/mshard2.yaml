@@ -1,10 +1,10 @@
-# config for shard 0
+# config for shard 1
 
 processManagement:
   fork: true
 
 storage:
-  dbPath: data/shard2
+  dbPath: ../data/shard2
   journal:
     enabled: true
   engine: wiredTiger
@@ -14,7 +14,7 @@ storage:
 
 systemLog:
   destination: file
-  path: data/shard2.log
+  path: ../data/shard2.log
   verbosity: 1
 
 #operationProfiling:
@@ -34,7 +34,7 @@ net:
 #auditLog:
 #  destination: file
 #  format: BSON
-#  path: data/c1a.bson
+#  path: ../data/c1a.bson
 
 security:
   authorization: enabled

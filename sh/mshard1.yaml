@@ -4,7 +4,7 @@ processManagement:
   fork: true
 
 storage:
-  dbPath: data/shard1
+  dbPath: ../data/shard1
   journal:
     enabled: true
   engine: wiredTiger
@@ -14,7 +14,7 @@ storage:
 
 systemLog:
   destination: file
-  path: data/shard1.log
+  path: ../data/shard1.log
   verbosity: 1
 
 #operationProfiling:
@@ -34,7 +34,7 @@ net:
 #auditLog:
 #  destination: file
 #  format: BSON
-#  path: data/c1a.bson
+#  path: ../data/c1a.bson
 
 security:
   authorization: enabled
