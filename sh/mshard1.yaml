@@ -28,7 +28,7 @@ net:
   ssl:
 #    mode: allowSSL
     mode: preferSSL
-    PEMKeyFile: tls-certs/server-key-cert.pem
+    PEMKeyFile: tls-certs/public-server-key-cert.pem
     CAFile: tls-certs/public-ca.pem
 
 #auditLog:
