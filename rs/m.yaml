@@ -41,7 +41,8 @@ security:
 setParameter:
 #  initialSyncOplogBufferPeekCacheSize: 1000
 #  authenticationMechanisms: PLAIN
-  authenticationMechanisms: SCRAM-SHA-1,MONGODB-X509,SCRAM-SHA-256
+#  authenticationMechanisms: SCRAM-SHA-1,MONGODB-X509,SCRAM-SHA-256
+  authenticationMechanisms: SCRAM-SHA-1,MONGODB-X509
 
 replication:
   replSetName: --CONFIG--
