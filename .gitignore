@@ -1,3 +1,5 @@
+.idea/
+
 tls-certs
 keyfiles
 .terraform
