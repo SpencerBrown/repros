@@ -68,7 +68,7 @@ module "client-cert" {
   ca_key  = module.public-root-ca.key
   subject = {
     O  = "MongoDB"
-    OU = "Public-Client"
+    OU = "Public-Client"  // cannot be "Public" as that would match O/OU and be an internal user
     CN = "Client"
   }
   client_only = true

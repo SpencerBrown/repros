@@ -47,10 +47,10 @@ net:
   unixDomainSocket:
     enabled: false
   ssl:
-    mode: preferSSL
+    mode: requireSSL
     PEMKeyFile: tls-certs/public-server-key-cert.pem
     CAFile: tls-certs/public-ca.pem
-    allowConnectionsWithoutCertificates: true
+    allowConnectionsWithoutCertificates: false
 #    disabledProtocols: "TLS1_0,TLS1_1"
 #  tls:
 #    logVersions: "TLS1_2"
