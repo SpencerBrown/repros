@@ -1,4 +1,3 @@
-
 // initiate standalone
 
 // hostname = getHostName();
@@ -32,8 +31,6 @@ tu = {
 
 adb = db.getSiblingDB('admin');
 adb.createUser(tu);
-tdb = db.getSiblingDB('test');
-tdb.createUser(tu);
 
 print("\nSetting up user 'CN=Client,OU=Public-Client,O=MongoDB', for MongoDB X.509 client certificate authentication");
 
@@ -42,7 +39,6 @@ xdb.createUser(
     {
         user: "CN=Client,OU=Public-Client,O=MongoDB",
         roles: [
-//            "userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase",
             {role: "root", db: "admin"},
         ]
     }

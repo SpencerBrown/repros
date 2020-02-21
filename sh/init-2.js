@@ -47,17 +47,17 @@ tu = {
 tdb = db.getSiblingDB('test');
 tdb.createUser(tu);
 
-print("\nCreating sharded collection \"test.foo\" and pre-splitting chunks at \"a: 50000\"");
+print("\nCreating sharded collection \"test.foo\" and pre-splitting chunks at \"a: 10\"");
 
 sh.enableSharding('test');
 tdb.foo.createIndex({a: 1});
 sh.shardCollection('test.foo', {a: 1});
-adb.runCommand( { split: 'test.foo', middle: {a: 50000} } );
+adb.runCommand( { split: 'test.foo', middle: {a: 10} } );
 
 print("\nAdding some data to \"test.foo\"");
 
-for (i=30; i<50; i++) {
-    tdb.foo.insert({a: i, b: 50000-i});
+for (i=1; i<20; i++) {
+    tdb.foo.insert({a: i, b: 50000+i});
 }
 
 sh.status();

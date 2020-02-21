@@ -39,6 +39,7 @@ module "internal-server-cert" {
   }
   dns_names = [
     "mongodb-local.computer",
+    "repro",
   ]
 }
 
@@ -57,6 +58,7 @@ module "public-server-cert" {
   }
   dns_names = [
     "mongodb-local.computer",
+    "repro",
   ]
 }
 // Create the Client key and CA-signed cert
