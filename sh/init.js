@@ -2,17 +2,20 @@
 
 shard1_replsetname = 'rs1';
 shard2_replsetname = 'rs2';
+shard3_replsetname = 'rs3';
 config_replsetname = 'cs';
 // hostname = getHostName();
 hostname = 'mongodb-local.computer';
 s_port = 27017;
 d1_port = 27018;
 d2_port = 27028;
+d3_port = 27038;
 c_port = 27019;
 
 s_host = hostname + ':' + s_port;
 d1_host = hostname + ':' + d1_port;
 d2_host = hostname + ':' + d2_port;
+d3_host = hostname + ':' + d3_port;
 c_host = hostname + ':' + c_port;
 
 au = {
@@ -32,8 +35,13 @@ d2_config = {
         {_id: 0, host: d2_host}
     ]
 };
+d3_config = {
+    _id: shard3_replsetname, members: [
+        {_id: 0, host: d3_host}
+    ]
+};
 
-print("\nInitializing replica set \"" + config_replsetname + '" with members ' + c_host);
+print("\nInitializing config replica set \"" + config_replsetname + '" with members ' + c_host);
 
 c_config = {
     _id: config_replsetname, members: [
@@ -97,3 +105,23 @@ print("\nReplica set healthy, primary is " + ismast.primary);
 print("\nSetting up shard local admin user");
 
 d2_db.createUser(au);
+
+print("\nInitializing replica set \"" + shard3_replsetname + '" with members ' + d3_host);
+d3_db = new Mongo(d3_host).getDB('admin');
+d3_db.runCommand({replSetInitiate: d3_config});
+
+print("\nWaiting for replica set to become healthy...");
+
+while (true) {
+    sleep(1000);
+    ismast = d3_db.isMaster();
+    if (ismast.ismaster) {
+        break;
+    }
+}
+
+print("\nReplica set healthy, primary is " + ismast.primary);
+
+print("\nSetting up shard local admin user");
+
+d3_db.createUser(au);

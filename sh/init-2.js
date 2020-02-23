@@ -3,17 +3,20 @@
 
 shard1_replsetname = 'rs1';
 shard2_replsetname = 'rs2';
+shard3_replsetname = 'rs3';
 config_replsetname = 'cs';
 // hostname = getHostName();
 hostname = 'mongodb-local.computer';
 s_port = 27017;
 d1_port = 27018;
 d2_port = 27028;
+d3_port = 27038;
 c_port = 27019;
 
 s_host = hostname + ':' + s_port;
 d1_host = hostname + ':' + d1_port;
 d2_host = hostname + ':' + d2_port;
+d3_host = hostname + ':' + d3_port;
 c_host = hostname + ':' + c_port;
 
 print("\nSetting up admin user and authenticating");
@@ -35,6 +38,10 @@ sh.addShard(shard1_replsetname + '/' + d1_host);
 print("\nAdding shard \"" + shard2_replsetname + '" with members '  + d2_host);
 
 sh.addShard(shard2_replsetname + '/' + d2_host);
+
+print("\nAdding shard \"" + shard3_replsetname + '" with members '  + d3_host);
+
+sh.addShard(shard3_replsetname + '/' + d3_host);
 
 print("\nSetting up test user");
 
