@@ -1,4 +1,4 @@
-# config for shard 0
+# config for shard1
 
 processManagement:
   fork: true
