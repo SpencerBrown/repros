@@ -32,9 +32,15 @@ resource "tls_locally_signed_cert" "this_cert" {
     "cert_signing",
     "crl_signing",
   ]: (var.client_only ?  [
-    "client_auth"] : [
+    "client_auth",
+    "digital_signature",
+    "key_encipherment",
+  ] : [
     "server_auth",
-    "client_auth"])
+    "client_auth",
+    "digital_signature",
+    "key_encipherment",
+  ])
   validity_period_hours = var.valid_days * 24
 }
 

@@ -12,11 +12,17 @@ resource "local_file" "this_key" {
 }
 
 resource "tls_self_signed_cert" "this_cert" {
-  is_ca_certificate = true
+  is_ca_certificate = var.ca_only ? true : false
   key_algorithm     = var.algorithm
-  allowed_uses = [
+  allowed_uses = var.ca_only ? [
     "cert_signing",
     "crl_signing",
+  ] : [
+    "server_auth",
+    "client_auth",
+    "cert_signing",
+    "digital_signature",
+    "key_encipherment",
   ]
   private_key_pem = tls_private_key.this_key.private_key_pem
   subject {

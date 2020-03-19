@@ -61,6 +61,7 @@ module "public-server-cert" {
     "repro",
   ]
 }
+
 // Create the Client key and CA-signed cert
 
 module "client-cert" {
@@ -74,4 +75,21 @@ module "client-cert" {
     CN = "Client"
   }
   client_only = true
+}
+
+// Create a self-signed server cert for standalone testing
+
+module "selfsigned-cert" {
+  source  = "./tf-modules/self-signed"
+  prefix  = "selfsigned"
+  ca_only = false
+  subject = {
+    O  = ""
+    OU = ""
+    CN = "*.example.com"
+  }
+  dns_names = [
+    "mongodb-local.computer",
+    "repro",
+  ]
 }
