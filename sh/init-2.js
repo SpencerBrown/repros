@@ -54,6 +54,29 @@ tu = {
 tdb = db.getSiblingDB('test');
 tdb.createUser(tu);
 
+print("Setting up \"all\" user and role");
+
+allrole = {
+    role: 'super',
+    roles: [],
+    privileges: [
+        {
+            resource: {anyResource: true},
+            actions: ['anyAction']
+        }
+    ]
+};
+
+adb.createRole(allrole);
+
+alluser = {
+    user: "all",
+    pwd: 'tester',
+    roles: ['super']
+};
+
+adb.createUser(alluser);
+
 print("\nCreating sharded collection \"test.foo\" and pre-splitting chunks at \"a: 10\"");
 
 sh.enableSharding('test');

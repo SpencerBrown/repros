@@ -1,6 +1,6 @@
 variable "subject" {
-  description = "Subject for self-signed root CA"
-  type        = map
+  description = "Subject for self-signed rertificate"
+  type        = map(string)
   default = {
     O  = "MongoDB"
     OU = "Example"
@@ -9,7 +9,7 @@ variable "subject" {
 }
 
 variable "algorithm" {
-  description = "Crypto algorithm (only RSA supported right now"
+  description = "Crypto algorithm (only RSA supported right now)"
   default     = "RSA"
 }
 
@@ -33,3 +33,14 @@ variable "directory" {
   default     = "tls-certs"
 }
 
+// make certificate that can only sign other certificates
+variable "ca_only" {
+  type    = bool
+  default = true
+}
+
+// Hosts for SAN list; default is no SAN list
+variable "dns_names" {
+  type    = list(string)
+  default = []
+}

@@ -3,7 +3,7 @@
 // Create the  "public" root Certificate Authority key and cert
 
 module "public-root-ca" {
-  source = "./tf-modules/root-ca"
+  source = "./tf-modules/self-signed"
   prefix = "public-ca"
   subject = {
     O  = "MongoDB"
@@ -15,7 +15,7 @@ module "public-root-ca" {
 // Create the  "internal" root Certificate Authority key and cert
 
 module "internal-root-ca" {
-  source = "./tf-modules/root-ca"
+  source = "./tf-modules/self-signed"
   prefix = "internal-ca"
   subject = {
     O  = "MongoDB"

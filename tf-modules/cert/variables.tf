@@ -33,7 +33,7 @@ variable "ca_key" {
 
 variable "subject" {
   description = "Subject for certificate"
-  type        = map
+  type        = map(string)
   default = {
     O  = "MongoDB"
     OU = "Example"
@@ -41,16 +41,19 @@ variable "subject" {
   }
 }
 
+// Hosts for SAN list; default is no SAN list
 variable "dns_names" {
-  type    = list
+  type    = list(string)
   default = []
 }
 
+// make certificate that can only do client auth
 variable "client_only" {
   type    = bool
   default = false
 }
 
+// make certificate that can only sign certificates
 variable "ca_only" {
   type    = bool
   default = false
