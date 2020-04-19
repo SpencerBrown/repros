@@ -68,15 +68,21 @@ tu = {
 adb = db.getSiblingDB('admin');
 adb.createUser(tu);
 
-print("\nSetting up user 'CN=Client,OU=Public,O=MongoDB', for MongoDB X.509 client certificate authentication");
+print("\nSetting up user 'CN=Client,OU=Public-Client,O=MongoDB', for MongoDB X.509 client certificate authentication");
 
 xdb = db.getSiblingDB('$external');
 xdb.createUser(
     {
-        user: "CN=Client,OU=Public,O=MongoDB",
+        user: "CN=Client,OU=Public-Client,O=MongoDB",
         roles: [
 //            "userAdminAnyDatabase", "dbAdminAnyDatabase", "readWriteAnyDatabase",
             {role: "root", db: "admin"},
         ]
     }
 );
+
+print("Creating collection test.foo");
+
+tdb = db.getSiblingDB('test');
+tc = tdb.getCollection('foo');
+tc.insertOne({a:42});

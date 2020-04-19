@@ -6,3 +6,4 @@ keyfiles
 terraform.tfstate*
 
 rs/m*.yaml
+rs/init.js
