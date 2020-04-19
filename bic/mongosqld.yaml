@@ -1,0 +1,21 @@
+#systemLog:
+#  logAppend: false
+#  path: ../data/bic.log
+net:
+  bindIp: 0.0.0.0
+  port: 3307
+  unixDomainSocket:
+    enabled: false
+security:
+  enabled: true
+mongodb:
+  net:
+    uri: "mongodb://server-d.spencerbrown.org:27017"
+    auth:
+      username: "spencer@SPENCERBROWN.ORG"
+      source: "$external"
+      mechanism: GSSAPI
+      gssapiServiceName: mymongo
+schema:
+  sample:
+    namespaces: "test.*"

@@ -1,0 +1,3 @@
+
+
+mongosqld --config mongosqld.yaml
