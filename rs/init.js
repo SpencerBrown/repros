@@ -80,3 +80,9 @@ xdb.createUser(
         ]
     }
 );
+
+print("Creating collection test.foo");
+
+tdb = db.getSiblingDB('test');
+tc = tdb.getCollection('foo');
+tc.insertOne({a:42});
