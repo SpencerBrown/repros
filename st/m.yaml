@@ -27,6 +27,7 @@ security:
 #  destination: file
 #  format: JSON
 #  path: ../data/m.json
+#  filter: '{ $and: [ {atype: {$in: ["createCollection", "dropCollection"] } }, { users: {$ne: {user: "test", db: "admin"}} } ] }'
 #  filter: '{atype: "authCheck", "param.command": { $in: [ "find", "insert", "delete", "update","createUser", "dropUser", "grantRolesToUser", "revokeRolesFromUser", "createDatabase", "dropDatabase", "createCollection", "createIndex", "dropCollection", "dropIndex", "authenticate", "authCheck" ,"dropAllRolesFromDatabase", "shutdown"] }}'
 #  filter: '{ atype: {$in: ["authCheck", "authenticate"]} }'
 
