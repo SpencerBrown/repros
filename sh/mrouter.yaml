@@ -27,9 +27,9 @@ net:
   ssl:
 #    mode: allowSSL
     mode: preferSSL
-    allowConnectionsWithoutCertificates: true
     PEMKeyFile: tls-certs/public-server-key-cert.pem
-    CAFile: tls-certs/public-ca.pem
+    CAFile: tls-certs/public-signing-ca-root.pem
+    allowConnectionsWithoutCertificates: true
 #    sslCipherConfig: "HIGH:!EXPORT:!aNULL@STRENGTH"
 
 security:
