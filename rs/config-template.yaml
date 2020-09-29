@@ -24,13 +24,10 @@ net:
   unixDomainSocket:
     enabled: false
   ssl:
-#    mode: allowSSL../
     mode: preferSSL
-#    mode: requireSSL
     PEMKeyFile: tls-certs/public-server-key-cert.pem
-    CAFile: tls-certs/public-ca.pem
-#    clusterFile: tls-certs/internal-server-key-cert.pem
-#    clusterCAFile: tls-certs/internal-ca.pem
+    CAFile: tls-certs/public-signing-ca.pem
+    clusterCAFile: tls-certs/public-ca-bundle.pem
     allowConnectionsWithoutCertificates: true
 
 security:
