@@ -49,8 +49,8 @@ net:
     enabled: false
   ssl:
     mode: preferSSL
-    PEMKeyFile: tls-certs/public-server-key-cert.pem
-    CAFile: tls-certs/public-ca.pem
+    PEMKeyFile: tls-certs/public-server-key.pem
+    CAFile: tls-certs/public-signing-ca.pem
     allowConnectionsWithoutCertificates: true
 #    disabledProtocols: "TLS1_0,TLS1_1"
 #  tls:

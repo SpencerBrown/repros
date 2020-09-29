@@ -20,7 +20,6 @@ resource "tls_self_signed_cert" "this_cert" {
   ] : [
     "server_auth",
     "client_auth",
-    "cert_signing",
     "digital_signature",
     "key_encipherment",
   ]

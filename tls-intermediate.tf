@@ -3,7 +3,7 @@
 // Create the  "public" root Certificate Authority key and cert
 
 module "public-root-ca" {
-  source = ".tf-modules/self-signed"
+  source = "./tf-modules/self-signed"
   prefix = "public-ca"
   subject = {
     O  = "MongoDB"
@@ -15,7 +15,7 @@ module "public-root-ca" {
 // Create the public intermediate signing CA certificate
 
 module "public-signing-ca" {
-  source  = "tls-modules/cert"
+  source  = "./tf-modules/cert"
   prefix  = "public-signing-ca"
   ca_cert = module.public-root-ca.cert
   ca_key  = module.public-root-ca.key
@@ -27,39 +27,12 @@ module "public-signing-ca" {
   ca_only = true
 }
 
-// Create the  "internal" root Certificate Authority key and cert
-
-module "internal-root-ca" {
-  source = ".tf-modules/self-signed"
-  prefix = "internal-ca"
-  subject = {
-    O  = "MongoDB"
-    OU = "Internal"
-    CN = "Root CA"
-  }
-}
-
-// Create the internal intermediate signing CA certificate
-
-module "internal-signing-ca" {
-  source  = "tls-modules/cert"
-  prefix  = "internal-signing-ca"
-  ca_cert = module.internal-root-ca.cert
-  ca_key  = module.internal-root-ca.key
-  subject = {
-    O  = "MongoDB"
-    OU = "Internal"
-    CN = "Signing CA"
-  }
-  ca_only = true
-}
-
 // Create the Server key and CA-signed cert
 // in normal deployments, we would create one server cert per server, with its hostname specified
 
-module "server-cert" {
-  source  = "tls-modules/cert"
-  prefix  = "server"
+module "public-server-cert" {
+  source  = "./tf-modules/cert"
+  prefix  = "public-server"
   ca_cert = module.public-signing-ca.cert
   ca_key  = module.public-signing-ca.key
   subject = {
@@ -69,19 +42,20 @@ module "server-cert" {
   }
   dns_names = [
     "mongodb-local.computer",
+    "repro"
   ]
 }
 
 // Create the Client key and CA-signed cert
 
 module "client-cert" {
-  source  = "tls-modules/cert"
+  source  = "./tf-modules/cert"
   prefix  = "client"
   ca_cert = module.public-signing-ca.cert
   ca_key  = module.public-signing-ca.key
   subject = {
     O  = "MongoDB"
-    OU = "Public"
+    OU = "Public-Client"
     CN = "Client"
   }
   client_only = true

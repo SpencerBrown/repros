@@ -1,5 +1,5 @@
 variable "subject" {
-  description = "Subject for self-signed rertificate"
+  description = "Subject for self-signed certificate"
   type        = map(string)
   default = {
     O  = "MongoDB"
