@@ -15,7 +15,7 @@ variable "valid_days" {
 }
 
 variable "prefix" {
-  description = "Prefix to assign to filenames, e.g. server.pem, server.key, server-bundle.pem"
+  description = "Prefix to assign to filenames, e.g. client.pem, client.key"
 }
 
 variable "directory" {
@@ -39,22 +39,4 @@ variable "subject" {
     OU = "Example"
     CN = "Server"
   }
-}
-
-// Hosts for SAN list; default is no SAN list
-variable "dns_names" {
-  type    = list(string)
-  default = []
-}
-
-// make certificate that can only do client auth
-variable "client_only" {
-  type    = bool
-  default = false
-}
-
-// make certificate that can only sign certificates
-variable "ca_only" {
-  type    = bool
-  default = false
 }

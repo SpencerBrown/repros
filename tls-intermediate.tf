@@ -3,7 +3,7 @@
 // Create the  "public" root Certificate Authority key and cert
 
 module "public-root-ca" {
-  source = "./tf-modules/self-signed"
+  source = "./tf-modules/root-ca"
   prefix = "public-ca"
   subject = {
     O  = "MongoDB"
@@ -15,7 +15,7 @@ module "public-root-ca" {
 // Create the public intermediate signing CA certificate
 
 module "public-signing-ca" {
-  source  = "./tf-modules/cert"
+  source  = "./tf-modules/intermediate-ca"
   prefix  = "public-signing-ca"
   ca_cert = module.public-root-ca.cert
   ca_key  = module.public-root-ca.key
@@ -24,14 +24,13 @@ module "public-signing-ca" {
     OU = "Public"
     CN = "Signing CA"
   }
-  ca_only = true
 }
 
 // Create the Server key and CA-signed cert
 // in normal deployments, we would create one server cert per server, with its hostname specified
 
 module "public-server-cert" {
-  source  = "./tf-modules/cert"
+  source  = "./tf-modules/server"
   prefix  = "public-server"
   ca_cert = module.public-signing-ca.cert
   ca_key  = module.public-signing-ca.key
@@ -49,7 +48,7 @@ module "public-server-cert" {
 // Create the Client key and CA-signed cert
 
 module "client-cert" {
-  source  = "./tf-modules/cert"
+  source  = "./tf-modules/client"
   prefix  = "client"
   ca_cert = module.public-signing-ca.cert
   ca_key  = module.public-signing-ca.key
@@ -58,5 +57,4 @@ module "client-cert" {
     OU = "Public-Client"
     CN = "Client"
   }
-  client_only = true
 }

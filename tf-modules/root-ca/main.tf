@@ -1,17 +1,15 @@
-// Create the self-signed key and cert
+// Create the root Certificate Authority key and cert
 resource "tls_private_key" "this_key" {
   algorithm = var.algorithm
   rsa_bits = var.rsa_bits
 }
 
 resource "tls_self_signed_cert" "this_cert" {
-  is_ca_certificate = false
+  is_ca_certificate = true
   key_algorithm = var.algorithm
   allowed_uses = [
-    "server_auth",
-    "client_auth",
-    "digital_signature",
-    "key_encipherment",
+    "cert_signing",
+    "crl_signing",
   ]
   private_key_pem = tls_private_key.this_key.private_key_pem
   subject {
@@ -19,7 +17,6 @@ resource "tls_self_signed_cert" "this_cert" {
     organizational_unit = var.subject.OU
     common_name = var.subject.CN
   }
-  dns_names = var.dns_names
   validity_period_hours = var.valid_days * 24
 }
 

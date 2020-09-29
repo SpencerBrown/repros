@@ -1,14 +1,8 @@
-// Create the key and cert for a server or client or an intermediate signing cert
+// Create the key and cert for a server
 
 resource "tls_private_key" "this_key" {
   algorithm = var.algorithm
   rsa_bits = var.rsa_bits
-}
-
-resource "local_file" "this_key" {
-  filename = "${var.directory}/${var.prefix}.key"
-  sensitive_content = tls_private_key.this_key.private_key_pem
-  file_permission = "0600"
 }
 
 resource "tls_cert_request" "this_cr" {
@@ -27,21 +21,20 @@ resource "tls_locally_signed_cert" "this_cert" {
   ca_key_algorithm = var.algorithm
   ca_private_key_pem = var.ca_key
   ca_cert_pem = var.ca_cert
-  is_ca_certificate = var.ca_only ? true : false
-  allowed_uses = var.ca_only ? [
-    "cert_signing",
-    "crl_signing",
-  ]: (var.client_only ?  [
-    "client_auth",
-    "digital_signature",
-    "key_encipherment",
-  ] : [
+  is_ca_certificate = false
+  allowed_uses = [
     "server_auth",
     "client_auth",
     "digital_signature",
     "key_encipherment",
-  ])
+  ]
   validity_period_hours = var.valid_days * 24
+}
+
+resource "local_file" "this_key" {
+  filename = "${var.directory}/${var.prefix}.key"
+  sensitive_content = tls_private_key.this_key.private_key_pem
+  file_permission = "0600"
 }
 
 resource "local_file" "this_cert" {
@@ -53,11 +46,5 @@ resource "local_file" "this_cert" {
 resource "local_file" "this_key_cert" {
   filename = "${var.directory}/${var.prefix}-key-cert.pem"
   sensitive_content = "${tls_private_key.this_key.private_key_pem}${tls_locally_signed_cert.this_cert.cert_pem}"
-  file_permission = "0600"
-}
-
-resource "local_file" "this_key_cert_ca" {
-  filename = "${var.directory}/${var.prefix}-key-cert-ca.pem"
-  sensitive_content = "${tls_private_key.this_key.private_key_pem}${tls_locally_signed_cert.this_cert.cert_pem}${var.ca_cert}"
   file_permission = "0600"
 }

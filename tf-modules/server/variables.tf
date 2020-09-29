@@ -1,15 +1,6 @@
-variable "subject" {
-  description = "Subject for self-signed certificate"
-  type        = map(string)
-  default = {
-    O  = "MongoDB"
-    OU = "Example"
-    CN = "Root CA"
-  }
-}
 
 variable "algorithm" {
-  description = "Crypto algorithm (only RSA supported right now)"
+  description = "Crypto algorithm (only RSA supported right now"
   default     = "RSA"
 }
 
@@ -24,13 +15,30 @@ variable "valid_days" {
 }
 
 variable "prefix" {
-  description = "Prefix to assign to filenames"
-  default     = "self-signed"
+  description = "Prefix to assign to filenames, e.g. server.pem, server.key"
 }
 
 variable "directory" {
   description = "Directory where files should be written"
   default     = "tls-certs"
+}
+
+variable "ca_cert" {
+  description = "CA certificate for signing"
+}
+
+variable "ca_key" {
+  description = "CA private key for signing"
+}
+
+variable "subject" {
+  description = "Subject for certificate"
+  type        = map(string)
+  default = {
+    O  = "MongoDB"
+    OU = "Example"
+    CN = "Server"
+  }
 }
 
 // Hosts for SAN list; default is no SAN list

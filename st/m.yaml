@@ -50,8 +50,7 @@ net:
   ssl:
     mode: preferSSL
     PEMKeyFile: tls-certs/public-server-key-cert.pem
-    CAFile: tls-certs/public-signing-ca.pem
-    clusterCAFile: tls-certs/public-ca-bundle.pem
+    CAFile: tls-certs/public-signing-ca-root.pem
     allowConnectionsWithoutCertificates: true
 #    disabledProtocols: "TLS1_0,TLS1_1"
 #  tls:

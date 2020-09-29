@@ -25,16 +25,10 @@ variable "valid_days" {
 
 variable "prefix" {
   description = "Prefix to assign to filenames"
-  default     = "self-signed"
+  default     = "root-ca"
 }
 
 variable "directory" {
   description = "Directory where files should be written"
   default     = "tls-certs"
-}
-
-// Hosts for SAN list; default is no SAN list
-variable "dns_names" {
-  type    = list(string)
-  default = []
 }
