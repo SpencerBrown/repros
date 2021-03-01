@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 echo 'killing mongod processes'
-killall mongod
+pkill mongod
 echo 'killing mongos processes'
-killall mongos
+pkill mongos
 echo 'removing data'
 sleep 3
 rm -rf ../data
