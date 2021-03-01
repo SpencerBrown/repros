@@ -6,16 +6,17 @@ CONFIG=${1-m}
 
 NUM_SHARDS=3
 
-mkdir -p {../data/config,../data/router,../data/shard0}
+mkdir -p {../data/config,../data/router}
 mongod -f "sh/${CONFIG}config.yaml"
 
-mongod -f "sh/${CONFIG}shard0.yaml"
-
-for ((I=1;I<NUM_SHARDS;I++));
+for ((I=0;I<NUM_SHARDS;I++));
 do
   mkdir -p "../data/shard$I"
-  PORT=$((27018+(10*(I-1))))
-  sed "s/shard0/shard$I/g; s/27018/$PORT/g; s/rs0/rs$I/g" "sh/${CONFIG}shard0.yaml" > "sh/${CONFIG}shard$I.yaml"
+  if ((I > 0));
+  then
+    PORT=$((27018+(10*I)))
+    sed "s/shard0/shard$I/g; s/27018/$PORT/g; s/rs0/rs$I/g" "sh/${CONFIG}shard0.yaml" > "sh/${CONFIG}shard$I.yaml"
+  fi
   mongod -f "sh/${CONFIG}shard$I.yaml"
 done
 
