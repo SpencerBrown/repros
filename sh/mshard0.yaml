@@ -1,10 +1,10 @@
-# config for shard1
+# config for shard0
 
 processManagement:
   fork: true
 
 storage:
-  dbPath: ../data/shard1
+  dbPath: ../data/shard0
   journal:
     enabled: true
   engine: wiredTiger
@@ -14,7 +14,7 @@ storage:
 
 systemLog:
   destination: file
-  path: ../data/shard1.log
+  path: ../data/shard0.log
   verbosity: 1
 
 #operationProfiling:
@@ -40,7 +40,7 @@ setParameter:
   authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509
 
 replication:
-  replSetName: rs1
+  replSetName: rs0
 
 sharding:
   clusterRole: shardsvr
