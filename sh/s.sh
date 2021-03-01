@@ -6,7 +6,7 @@ CONFIG=${1-m}
 
 NUM_SHARDS=3
 
-mkdir -p {../data/config,../data/router}
+mkdir -p {../data/config,../data/router,../data/shard0}
 mongod -f "sh/${CONFIG}config.yaml"
 
 mongod -f "sh/${CONFIG}shard0.yaml"
