@@ -1,20 +1,27 @@
-#!/usr/bin/env bash
+#!/bin/bash -x
+
+echo "Start CSRS and shards"
 
 CONFIG=${1-m}
 
-mkdir -p {../data/shard0,../data/shard1,../data/shard2,../data/config,../data/router}
+NUM_SHARDS=3
 
-sed 's/shard0/shard1/g; s/27018/27028/g; s/rs0/rs1/g' sh/${CONFIG}shard0.yaml > sh/${CONFIG}shard1.yaml
-sed 's/shard0/shard2/g; s/27018/27038/g; s/rs0/rs2/g' sh/${CONFIG}shard0.yaml > sh/${CONFIG}shard2.yaml
+mkdir -p {../data/config,../data/router}
+mongod -f "sh/${CONFIG}config.yaml"
 
-mongod -f sh/${CONFIG}config.yaml
-mongod -f sh/${CONFIG}shard0.yaml
-mongod -f sh/${CONFIG}shard1.yaml
-mongod -f sh/${CONFIG}shard2.yaml
+mongod -f "sh/${CONFIG}shard0.yaml"
+
+for ((I=1;I<NUM_SHARDS;I++));
+do
+  mkdir -p "../data/shard$I"
+  PORT=$((27018+(10*(I-1))))
+  sed "s/shard0/shard$I/g; s/27018/$PORT/g; s/rs0/rs$I/g" "sh/${CONFIG}shard0.yaml" > "sh/${CONFIG}shard$I.yaml"
+  mongod -f "sh/${CONFIG}shard$I.yaml"
+done
 
 mongo --nodb sh/init.js
 
-mongos -f sh/${CONFIG}router.yaml
+mongos -f "sh/${CONFIG}router.yaml"
 
 mongo --host mongodb-local.computer sh/init-2.js
 
