@@ -1,10 +1,8 @@
-# config for shard0
-
 processManagement:
   fork: true
 
 storage:
-  dbPath: ../data/shard0
+  dbPath: ../data/--NODE--
   journal:
     enabled: true
   engine: wiredTiger
@@ -14,15 +12,12 @@ storage:
 
 systemLog:
   destination: file
-  path: ../data/shard0.log
+  path: ../data/--NODE--.log
   verbosity: 1
-
-#operationProfiling:
-#  slowOpThresholdMs: -1
 
 net:
   bindIp: 127.0.2.1,192.168.0.42
-  port: 27018
+  port: --PORT--
   unixDomainSocket:
     enabled: false
   ssl:
@@ -40,7 +35,7 @@ setParameter:
   authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509
 
 replication:
-  replSetName: rs0
+  replSetName: --CONFIG--
 
 sharding:
   clusterRole: shardsvr

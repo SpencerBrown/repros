@@ -4,20 +4,21 @@ echo "Start CSRS and shards"
 
 CONFIG=${1-m}
 
-NUM_SHARDS=3
+NUM_SHARDS=2
+NUM_REPLICAS=1
+
+echo "Setting up sharded cluster with $NUM_SHARDS shards with $NUM_REPLICAS nodes each"
 
 mkdir -p {../data/config,../data/router}
 mongod -f "sh/${CONFIG}config.yaml"
 
-for ((I=0;I<NUM_SHARDS;I++));
-do
-  mkdir -p "../data/shard$I"
-  if ((I > 0));
-  then
-    PORT=$((27018+(10*I)))
-    sed "s/shard0/shard$I/g; s/27018/$PORT/g; s/rs0/rs$I/g" "sh/${CONFIG}shard0.yaml" > "sh/${CONFIG}shard$I.yaml"
-  fi
-  mongod -f "sh/${CONFIG}shard$I.yaml"
+for ((I = 0; I < NUM_SHARDS; I++)); do
+  for ((J = 0; J < NUM_REPLICAS; J++)); do
+    mkdir -p "../data/shard$I$J"
+    PORT=$((27018 + (10 * I) + J))
+    sed "s/--NODE--/${CONFIG}shard$I$J/g; s/--PORT--/$PORT/g; s/--CONFIG--/rs$I/g" "sh/config-template.yaml" >"sh/${CONFIG}shard$I$J.yaml"
+    mongod -f "sh/${CONFIG}shard$I$J.yaml"
+  done
 done
 
 mongo --nodb sh/init.js
