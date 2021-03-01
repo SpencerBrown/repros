@@ -15,8 +15,8 @@ function initialize_replica_set (name, host, config) {
     print("\nReplica set " + name + " is healthy, primary is " + ismast.primary);
 }
 
-// hostname = getHostName();
-hostname = 'mongodb-local.computer';
+// hostname = getHostName() + ":";
+hostname = 'mongodb-local.computer' + ":";
 
 au = {
     user: 'admin',
@@ -25,11 +25,11 @@ au = {
 };
 
 s_port = 27017;
-s_host = hostname + ':' + s_port;
+s_host = hostname + s_port;
 
 c_replsetname = 'cs';
 c_port = 27019;
-c_host = hostname + ':' + c_port;
+c_host = hostname + c_port;
 c_config = {
     _id: c_replsetname, members: [
         {_id: 0, host: c_host}

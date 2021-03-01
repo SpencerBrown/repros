@@ -1,23 +1,33 @@
 
 // add shards to cluster
 
-shard1_replsetname = 'rs1';
-shard2_replsetname = 'rs2';
-shard3_replsetname = 'rs3';
-config_replsetname = 'cs';
-// hostname = getHostName();
-hostname = 'mongodb-local.computer';
-s_port = 27017;
-d1_port = 27018;
-d2_port = 27028;
-d3_port = 27038;
-c_port = 27019;
+// hostname = getHostName() + ":";
+hostname = 'mongodb-local.computer' + ":";
 
-s_host = hostname + ':' + s_port;
-d1_host = hostname + ':' + d1_port;
-d2_host = hostname + ':' + d2_port;
-d3_host = hostname + ':' + d3_port;
-c_host = hostname + ':' + c_port;
+s_port = 27017;
+s_host = hostname + s_port;
+
+c_replsetname = 'cs';
+c_port = 27019;
+c_host = hostname + c_port;
+c_config = {
+    _id: c_replsetname, members: [
+        {_id: 0, host: c_host}
+    ]
+};
+
+num_shards = 3;
+shard_replsetnames = ['rs0', 'rs1', 'rs2'];
+shard_ports = [27018, 27028, 27038];
+shard_hosts = [];
+shard_configs = [];
+for (i=0; i<num_shards; i++) {
+    shard_hosts[i] = hostname + shard_ports[i];
+    shard_configs[i] = {
+        _id: shard_replsetnames[i],
+        members: [{_id: 0, host: shard_hosts[i]}]
+    };
+}
 
 print("\nSetting up admin user and authenticating");
 
@@ -31,17 +41,10 @@ adb = db.getSiblingDB('admin');
 adb.createUser(au);
 adb.auth('admin', 'tester');
 
-print("\nAdding shard \"" + shard1_replsetname + '" with members '  + d1_host);
-
-sh.addShard(shard1_replsetname + '/' + d1_host);
-
-print("\nAdding shard \"" + shard2_replsetname + '" with members '  + d2_host);
-
-sh.addShard(shard2_replsetname + '/' + d2_host);
-
-print("\nAdding shard \"" + shard3_replsetname + '" with members '  + d3_host);
-
-sh.addShard(shard3_replsetname + '/' + d3_host);
+for (i = 0; i<num_shards; i++) {
+    print("\nAdding shard " + shard_replsetnames[i] + " with member "  + shard_hosts[i]);
+    sh.addShard(shard_replsetnames[i] + '/' + shard_hosts[i]);
+}
 
 print("\nSetting up test user");
 
