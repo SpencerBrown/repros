@@ -7,25 +7,13 @@ systemLog:
   destination: file
   path: ../data/router.log
   verbosity: 0
-#  component:
-#    network:
-#      verbosity: 5
-
-#operationProfiling:
-#  slowOpThresholdMs: -1
-
-#auditLog:
-#  destination: file
-#  format: BSON
-#  path: ../data/c3.bson
 
 net:
-  bindIp: 127.0.2.1
+  bindIp: 127.0.2.1,192.168.0.42
   port: 27017
   unixDomainSocket:
     enabled: false
   ssl:
-#    mode: allowSSL
     mode: preferSSL
     PEMKeyFile: tls-certs/public-server-key-cert.pem
     CAFile: tls-certs/public-signing-ca-root.pem
@@ -37,7 +25,7 @@ security:
 #  keyFile: tls-certs/server.keyfile
 
 setParameter:
-  authenticationMechanisms: SCRAM-SHA-1,PLAIN,MONGODB-X509
+  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,PLAIN,MONGODB-X509
 
 sharding:
   configDB: cs/mongodb-local.computer:27019

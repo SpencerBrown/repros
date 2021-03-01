@@ -10,18 +10,15 @@ storage:
   engine: wiredTiger
   wiredTiger:
     engineConfig:
-      cacheSizeGB: 1
+      cacheSizeGB: 0.5
 
 systemLog:
   destination: file
   path: ../data/config.log
   verbosity: 1
 
-#operationProfiling:
-#  slowOpThresholdMs: 0
-
 net:
-  bindIp: 127.0.2.1
+  bindIp: 127.0.2.1,192.168.0.42
   port: 27019
   unixDomainSocket:
     enabled: false
@@ -31,22 +28,16 @@ net:
     CAFile: tls-certs/public-signing-ca-root.pem
     allowConnectionsWithoutCertificates: true
 
-#auditLog:
-#  destination: file
-#  format: BSON
-#  path: ../data/c2.bson
-
 security:
   authorization: enabled
   clusterAuthMode: x509
 #  keyFile: tls-certs/server.keyfile
 
 setParameter:
-  authenticationMechanisms: SCRAM-SHA-1,PLAIN,MONGODB-X509
+  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,PLAIN,MONGODB-X509
 
 replication:
   replSetName: cs
-#  enableMajorityReadConcern: false
 
 sharding:
   clusterRole: configsvr
