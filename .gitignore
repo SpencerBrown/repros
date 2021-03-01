@@ -3,6 +3,7 @@
 tls-certs
 keyfiles
 .terraform
+.terraform.lock.hcl
 terraform.tfstate*
 
 rs/m*.yaml

@@ -3,7 +3,7 @@
 // Create the  "public" root Certificate Authority key and cert
 
 module "public-root-ca" {
-  source = "./tf-modules/root-ca"
+  source = "github.com/SpencerBrown/tlscerts/root-ca"
   prefix = "public-ca"
   subject = {
     O  = "MongoDB"
@@ -15,7 +15,7 @@ module "public-root-ca" {
 // Create the public intermediate signing CA certificate
 
 module "public-signing-ca" {
-  source  = "./tf-modules/intermediate-ca"
+  source  = "github.com/SpencerBrown/tlscerts/intermediate-ca"
   prefix  = "public-signing-ca"
   ca_cert = module.public-root-ca.cert
   ca_key  = module.public-root-ca.key
@@ -30,7 +30,7 @@ module "public-signing-ca" {
 // in normal deployments, we would create one server cert per server, with its hostname specified
 
 module "public-server-cert" {
-  source  = "./tf-modules/server"
+  source  = "github.com/SpencerBrown/tlscerts/server"
   prefix  = "public-server"
   ca_cert = module.public-signing-ca.cert
   ca_key  = module.public-signing-ca.key
@@ -48,7 +48,7 @@ module "public-server-cert" {
 // Create the Client key and CA-signed cert
 
 module "client-cert" {
-  source  = "./tf-modules/client"
+  source  = "github.com/SpencerBrown/tlscerts/client"
   prefix  = "client"
   ca_cert = module.public-signing-ca.cert
   ca_key  = module.public-signing-ca.key
