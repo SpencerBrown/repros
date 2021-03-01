@@ -8,19 +8,16 @@ storage:
   engine: wiredTiger
   wiredTiger:
     engineConfig:
-      cacheSizeGB: 1
+      cacheSizeGB: 0.5
 
 systemLog:
   destination: file
   path: ../data/--NODE--.log
   verbosity: 1
 
-#operationProfiling:
-#  slowOpThresholdMs: 0
-
 net:
   port: --PORT--
-  bindIp: 127.0.2.1
+  bindIp: 127.0.2.1,192.168.0.42
   unixDomainSocket:
     enabled: false
   ssl:
@@ -35,11 +32,7 @@ security:
   clusterAuthMode: x509
 
 setParameter:
-#  initialSyncOplogBufferPeekCacheSize: 1000
-#  authenticationMechanisms: PLAIN
-#  authenticationMechanisms: SCRAM-SHA-1,MONGODB-X509,SCRAM-SHA-256
-  authenticationMechanisms: SCRAM-SHA-1,MONGODB-X509
+  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509
 
 replication:
   replSetName: --CONFIG--
-#  enableMajorityReadConcern: false
