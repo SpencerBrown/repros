@@ -34,7 +34,7 @@ s_host = hostname + s_port;
 
 // Set up CSRS
 c_replsetname = 'cs';
-c_port = 27019;
+c_port = 27016;
 c_host = hostname + c_port;
 c_config = {
     _id: c_replsetname, members: [

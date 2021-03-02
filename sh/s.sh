@@ -1,4 +1,3 @@
-#!/bin/bash -x
 
 echo "Start CSRS and shards"
 
