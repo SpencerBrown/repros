@@ -28,4 +28,4 @@ setParameter:
   authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,PLAIN,MONGODB-X509
 
 sharding:
-  configDB: cs/mongodb-local.computer:27019
+  configDB: cs/mongodb-local.computer:27016
