@@ -9,7 +9,6 @@ echo "Setting up sharded cluster with $NUM_SHARDS shards with $NUM_REPLICAS node
 
 mkdir -p {../data/config,../data/router}
 mongod -f "sh/config.yaml"
-mongos -f "sh/router.yaml"
 
 for ((I = 0; I < NUM_SHARDS; I++)); do
   for ((J = 0; J < NUM_REPLICAS; J++)); do
@@ -20,8 +19,10 @@ for ((I = 0; I < NUM_SHARDS; I++)); do
   done
 done
 
+mongos -f "sh/router.yaml"
+
 mongo --nodb sh/init.js
 
-mongo --host mongodb-local.computer sh/init-2.js
+#mongo --host mongodb-local.computer sh/init-2.js
 
 mongo --username admin --password tester --authenticationDatabase admin --host mongodb-local.computer:27017
