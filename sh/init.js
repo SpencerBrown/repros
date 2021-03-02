@@ -44,7 +44,7 @@ c_config = {
 initialize_replica_set(c_replsetname, c_config);
 
 // Connect to the mongos, create admin user, authenticate as admin user
-sleep(2*1000); // give the mongos a chance to finish startup
+sleep(4*1000); // give the mongos a chance to finish startup
 s_mongo = new Mongo(s_host);
 s_adb = s_mongo.getDB('admin');
 s_adb.createUser(au);
