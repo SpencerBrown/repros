@@ -10,7 +10,7 @@ function initialize_replica_set(name, config) {
     rdb.runCommand({replSetInitiate: config});
     print("\nWaiting for replica set " + name + " to become healthy...");
     while (true) {
-        sleep(500);
+        sleep(0.5*1000);
         ismast = rdb.isMaster();
         if (ismast.ismaster) {
             break;
@@ -44,6 +44,7 @@ c_config = {
 initialize_replica_set(c_replsetname, c_config);
 
 // Connect to the mongos, create admin user, authenticate as admin user
+sleep(5*1000); // give the mongos a chance to finish startup
 s_mongo = new Mongo(s_host);
 s_adb = s_mongo.getDB('admin');
 s_adb.createUser(au);
