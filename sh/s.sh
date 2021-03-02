@@ -19,7 +19,7 @@ for ((I = 0; I < NUM_SHARDS; I++)); do
   done
 done
 
-mongos -f "sh/router.yaml"
+mongos -f "sh/router.yaml" &   # allow it to start asynchronously
 
 mongo --nodb sh/init.js
 
