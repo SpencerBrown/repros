@@ -1,8 +1,12 @@
-// initiate config and shard replica sets
+num_shards = 2;
+num_replicas = 1;
+shard_replsetname_prefix = "rs";
+shard_starting_port = 27018;
 
-function initialize_replica_set (name, host, config) {
-    print("\nInitializing replica set " + name + " with member " + host);
-    let rdb = new Mongo(host).getDB('admin');
+function initialize_replica_set (name, config) {
+    print("\nInitializing replica set " + name);
+    let host1 = config.members[0].host;
+    let rdb = new Mongo(host1).getDB('admin');
     rdb.runCommand({replSetInitiate: config});
     print("\nWaiting for replica set " + name + " to become healthy...");
     while (true) {
@@ -13,6 +17,7 @@ function initialize_replica_set (name, host, config) {
         }
     }
     print("\nReplica set " + name + " is healthy, primary is " + ismast.primary);
+    return ismast.primary;
 }
 
 // hostname = getHostName() + ":";
@@ -27,6 +32,7 @@ au = {
 s_port = 27017;
 s_host = hostname + s_port;
 
+// Set up CSRS
 c_replsetname = 'cs';
 c_port = 27019;
 c_host = hostname + c_port;
@@ -35,26 +41,17 @@ c_config = {
         {_id: 0, host: c_host}
     ]
 };
+initialize_replica_set(c_replsetname, c_config);
 
-num_shards = 3;
-shard_replsetnames = ['rs0', 'rs1', 'rs2'];
-shard_ports = [27018, 27028, 27038];
-shard_hosts = [];
-shard_configs = [];
+// Set up shards
 for (i=0; i<num_shards; i++) {
-    shard_hosts[i] = hostname + shard_ports[i];
-    shard_configs[i] = {
-        _id: shard_replsetnames[i],
-        members: [{_id: 0, host: shard_hosts[i]}]
-    };
-}
-
-// Initiate config replica set
-initialize_replica_set(c_replsetname, c_host, c_config);
-
-// Initiate shard replica sets
-for (i=0; i<num_shards; i++) {
-    initialize_replica_set(shard_replsetnames[i], shard_hosts[i], shard_configs[i]);
-    let adb = new Mongo(shard_hosts[i]).getDB('admin');
-    adb.createUser(au);
+    let shard_replsetname = shard_replsetname_prefix + i;
+    let shard_config = {_id: shard_replsetname, members: []};
+    for (j = 0; j < num_replicas; j++) {
+        let shard_port = shard_starting_port + (10 * i) + j;
+        shard_config.members[j] = {_id: j, host: hostname + shard_port};
+    }
+    let primary = initialize_replica_set(shard_replsetname, shard_config);
+    let adb = new Mongo(primary).getDB('admin');
+    adb.createUser(au);  // create shard local user
 }
