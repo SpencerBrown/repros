@@ -1,5 +1,5 @@
 num_shards = 2;
-num_replicas = 1;
+num_replicas = 2;
 shard_replsetname_prefix = "rs";
 shard_starting_port = 27018;
 
