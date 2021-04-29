@@ -2,7 +2,7 @@
 echo "Start CSRS and shards"
 
 NUM_SHARDS=2
-NUM_REPLICAS=2
+NUM_REPLICAS=1
 
 echo "Setting up sharded cluster with $NUM_SHARDS shards with $NUM_REPLICAS nodes each"
 
@@ -21,7 +21,5 @@ done
 mongos -f "sh/router.yaml" &   # allow it to start asynchronously
 
 mongo --nodb sh/init.js
-
-#mongo --host mongodb-local.computer sh/init-2.js
 
 mongo --username admin --password tester --authenticationDatabase admin --host mongodb-local.computer:27017

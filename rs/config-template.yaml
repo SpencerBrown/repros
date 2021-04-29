@@ -17,7 +17,7 @@ systemLog:
 
 net:
   port: --PORT--
-  bindIp: 127.0.2.1,192.168.0.42
+  bindIp: 0.0.0.0
   unixDomainSocket:
     enabled: false
   ssl:
@@ -33,6 +33,7 @@ security:
 
 setParameter:
   authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509
+#  authenticationMechanisms: SCRAM-SHA-1,MONGODB-CR,MONGODB-X509
 
 replication:
   replSetName: --CONFIG--

@@ -7,5 +7,5 @@ fi
 
 cd /usr/local/bin
 ln -snf mongodb-$1 mongodb
-cd ~/repros
+cd -
 mongod --version

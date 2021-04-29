@@ -9,4 +9,5 @@ terraform.tfstate*
 rs/m*.yaml
 rs/init.js
 
-old-tls-certs
+sh/shard*.yaml
+sh/config.yaml
