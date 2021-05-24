@@ -1,12 +1,13 @@
 num_shards = 2;
-num_replicas = 1;
+num_replicas = 3;
 shard_replsetname_prefix = "rs";
 shard_starting_port = 27018;
 
 function initialize_replica_set(name, config) {
     print("\nInitializing replica set " + name);
     let host1 = config.members[0].host;
-    let rdb = new Mongo(host1).getDB('admin');
+    // let rdb = new Mongo(host1).getDB('admin');
+    let rdb = Mongo(host1).getDB('admin');
     rdb.runCommand({replSetInitiate: config});
     print("\nWaiting for replica set " + name + " to become healthy...");
     while (true) {
@@ -45,7 +46,8 @@ initialize_replica_set(c_replsetname, c_config);
 
 // Connect to the mongos, create admin user, authenticate as admin user
 sleep(4*1000); // give the mongos a chance to finish startup
-s_mongo = new Mongo(s_host);
+// s_mongo = new Mongo(s_host);
+s_mongo = Mongo(s_host);
 s_adb = s_mongo.getDB('admin');
 s_adb.createUser(au);
 s_adb.auth(au.user, au.pwd);
@@ -61,7 +63,8 @@ for (i = 0; i < num_shards; i++) {
         shard_string = shard_string + hostname + shard_port + ",";
     }
     let primary = initialize_replica_set(shard_replsetname, shard_config);
-    let adb = new Mongo(primary).getDB('admin');
+    // let adb = new Mongo(primary).getDB('admin');
+    let adb = Mongo(primary).getDB('admin');
     adb.createUser(au);  // create shard local user
     s_adb.runCommand({addShard: shard_string.slice(0, -1) });
 }
