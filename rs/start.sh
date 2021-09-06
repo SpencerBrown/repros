@@ -7,4 +7,4 @@ mongod -f rs/${CONFIG}1.yaml
 mongod -f rs/${CONFIG}2.yaml
 mongod -f rs/${CONFIG}3.yaml
 
-mongosh --host ${CONFIG}/mongodb-local.computer --port ${PORT} --tls --tlsCAFile tls-certs/public-ca.pem --username admin --password tester --authenticationDatabase admin
+mongosh --host ${CONFIG}/mongodb-local.computer --port ${PORT} --tls --tlsCAFile tls/root-ca.pem --username admin --password tester --authenticationDatabase admin

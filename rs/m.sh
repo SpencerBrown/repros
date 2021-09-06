@@ -3,4 +3,4 @@
 CONFIG=${1-m}
 PORT=${2-27017}
 
-mongosh --host ${CONFIG}/mongodb-local.computer --port ${PORT} --tls --tlsCAFile tls-certs/public-ca.pem --tlsCertificateKeyFile tls-certs/client-key-cert.pem --username admin --password tester --authenticationDatabase admin
+mongosh --host ${CONFIG}/mongodb-local.computer --port ${PORT} --tls --tlsCAFile tls/root-ca.pem --tlsCertificateKeyFile tls/client-key-cert.pem --username admin --password tester --authenticationDatabase admin

@@ -15,5 +15,5 @@ mongod -f rs/${CONFIG}3.yaml
 
 sed "s/--PORT--/$((PORT+0))/g; s/--CONFIG--/${CONFIG}/g" rs/init-template.js > rs/init.js
 
-mongosh --host mongodb-local.computer --port ${PORT} --tls --tlsCAFile tls-certs/public-ca.pem rs/init.js
-mongosh --host ${CONFIG}/mongodb-local.computer --port ${PORT} --tls --tlsCAFile tls-certs/public-ca.pem --username admin --password tester --authenticationDatabase admin
+mongosh --host mongodb-local.computer --port ${PORT} --tls --tlsCAFile tls/root-ca.pem rs/init.js
+mongosh --host ${CONFIG}/mongodb-local.computer --port ${PORT} --tls --tlsCAFile tls/root-ca.pem --username admin --password tester --authenticationDatabase admin

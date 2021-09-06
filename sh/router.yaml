@@ -21,14 +21,13 @@ net:
     enabled: false
   ssl:
     mode: preferSSL
-    PEMKeyFile: tls-certs/public-server-key-cert.pem
-    CAFile: tls-certs/public-signing-ca-root.pem
+    PEMKeyFile: tls/server-key-cert.pem
+    CAFile: tls/ca-chain.pem
     disabledProtocols: "TLS1_0,TLS1_1"
     allowConnectionsWithoutCertificates: true
 #    sslCipherConfig: "HIGH:!EXPORT:!aNULL@STRENGTH"
 
 security:
-  transitionToAuth: true
   clusterAuthMode: x509
 #  keyFile: tls-certs/server.keyfile
 

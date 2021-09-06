@@ -22,8 +22,8 @@ net:
     enabled: false
   ssl:
     mode: preferSSL
-    PEMKeyFile: tls-certs/public-server-key-cert.pem
-    CAFile: tls-certs/public-signing-ca-root.pem
+    PEMKeyFile: tls/server-key-cert.pem
+    CAFile: tls/ca-chain.pem
     allowConnectionsWithoutCertificates: true
 
 security:
