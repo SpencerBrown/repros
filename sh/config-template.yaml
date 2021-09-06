@@ -35,8 +35,8 @@ net:
 
 security:
   authorization: enabled
-  clusterAuthMode: x509
-#  keyFile: tls-certs/server.keyfile
+#  clusterAuthMode: x509
+  keyFile: tls/keyfile.key
 
 #setParameter:
 #  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509

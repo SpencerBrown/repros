@@ -1,6 +1,4 @@
 .idea/
-
-tls-certs
 tls
 keyfiles
 .terraform

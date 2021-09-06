@@ -28,8 +28,8 @@ net:
 
 security:
   authorization: enabled
-# keyFile: keyfiles/keyfile-atrest.txt
-  clusterAuthMode: x509
+  keyFile: tls/keyfile.key
+#  clusterAuthMode: x509
 
 setParameter:
   authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509
