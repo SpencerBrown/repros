@@ -15,7 +15,13 @@ storage:
 systemLog:
   destination: file
   path: ../data/config.log
-  verbosity: 1
+  verbosity: 0
+
+auditLog:
+  destination: file
+  format: JSON
+  path: ../data/audit-config.log
+  filter: '{ atype: { $in: [ "createCollection", "dropCollection" ] } }'
 
 net:
   bindIp: 0.0.0.0
@@ -26,6 +32,7 @@ net:
     mode: preferSSL
     PEMKeyFile: tls-certs/public-server-key-cert.pem
     CAFile: tls-certs/public-signing-ca-root.pem
+    disabledProtocols: "TLS1_0,TLS1_1"
     allowConnectionsWithoutCertificates: true
 
 security:
@@ -35,7 +42,6 @@ security:
 
 setParameter:
     authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509
-#  authenticationMechanisms: SCRAM-SHA-1,MONGODB-CR,MONGODB-X509
 
 replication:
   replSetName: cs

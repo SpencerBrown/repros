@@ -1,5 +1,5 @@
 num_shards = 2;
-num_replicas = 3;
+num_replicas = 1;
 shard_replsetname_prefix = "rs";
 shard_starting_port = 27018;
 
@@ -99,6 +99,16 @@ alluser = {
 
 s_adb.createUser(alluser);
 
+xdb = s_adb.getSiblingDB('$external');
+xdb.createUser(
+    {
+        user: "CN=Client,OU=Public-Client,O=MongoDB",
+        roles: [
+            {role: "root", db: "admin"},
+        ]
+    }
+);
+
 print("\nCreating sharded collection \"test.foo\" and pre-splitting chunks at \"a: 10\"");
 
 s_adb.runCommand({enableSharding: 'test'});
@@ -109,5 +119,5 @@ s_adb.runCommand( { split: 'test.foo', middle: {a: 10} } );
 print("\nAdding some data to \"test.foo\"");
 
 for (i=1; i<20; i++) {
-    tdb.foo.insert({a: i, b: 50000+i});
+    tdb.foo.insertOne({a: i, b: 50000+i});
 }

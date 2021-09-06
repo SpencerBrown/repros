@@ -15,6 +15,12 @@ systemLog:
   path: ../data/--NODE--.log
   verbosity: 1
 
+auditLog:
+  destination: file
+  format: JSON
+  path: ../data/audit_--NODE--.log
+  filter: '{ atype: { $in: [ "createCollection", "dropCollection" ] } }'
+
 net:
   bindIp: 0.0.0.0
   port: --PORT--
@@ -25,15 +31,15 @@ net:
     PEMKeyFile: tls-certs/public-server-key-cert.pem
     CAFile: tls-certs/public-signing-ca-root.pem
     allowConnectionsWithoutCertificates: true
+    disabledProtocols: "TLS1_0,TLS1_1"
 
 security:
   authorization: enabled
   clusterAuthMode: x509
 #  keyFile: tls-certs/server.keyfile
 
-setParameter:
-  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509
-#  authenticationMechanisms: SCRAM-SHA-1,MONGODB-CR,MONGODB-X509
+#setParameter:
+#  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509
 
 replication:
   replSetName: --CONFIG--

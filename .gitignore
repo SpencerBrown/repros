@@ -1,6 +1,7 @@
 .idea/
 
 tls-certs
+tls
 keyfiles
 .terraform
 .terraform.lock.hcl

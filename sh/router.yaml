@@ -8,6 +8,12 @@ systemLog:
   path: ../data/router.log
   verbosity: 0
 
+auditLog:
+  destination: file
+  format: JSON
+  path: ../data/audit-router.log
+  filter: '{ atype: { $in: [ "createCollection", "dropCollection" ] } }'
+
 net:
   bindIp: 0.0.0.0
   port: 27017
@@ -17,16 +23,17 @@ net:
     mode: preferSSL
     PEMKeyFile: tls-certs/public-server-key-cert.pem
     CAFile: tls-certs/public-signing-ca-root.pem
+    disabledProtocols: "TLS1_0,TLS1_1"
     allowConnectionsWithoutCertificates: true
 #    sslCipherConfig: "HIGH:!EXPORT:!aNULL@STRENGTH"
 
 security:
+  transitionToAuth: true
   clusterAuthMode: x509
 #  keyFile: tls-certs/server.keyfile
 
 setParameter:
   authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509
-#  authenticationMechanisms: SCRAM-SHA-1,MONGODB-CR,MONGODB-X509
 
 sharding:
   configDB: cs/mongodb-local.computer:27016
