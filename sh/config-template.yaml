@@ -28,7 +28,7 @@ net:
     enabled: false
   ssl:
     mode: preferSSL
-    PEMKeyFile: tls/server-key-cert.pem
+    PEMKeyFile: tls/private/server-key-cert.pem
     CAFile: tls/ca-chain.pem
     allowConnectionsWithoutCertificates: true
     disabledProtocols: "TLS1_0,TLS1_1"
@@ -36,7 +36,7 @@ net:
 security:
   authorization: enabled
 #  clusterAuthMode: x509
-  keyFile: tls/keyfile.key
+  keyFile: tls/private/keyfile.key
 
 #setParameter:
 #  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509

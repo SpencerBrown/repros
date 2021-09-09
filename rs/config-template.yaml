@@ -22,13 +22,13 @@ net:
     enabled: false
   ssl:
     mode: preferSSL
-    PEMKeyFile: tls/server-key-cert.pem
+    PEMKeyFile: tls/private/server-key-cert.pem
     CAFile: tls/ca-chain.pem
     allowConnectionsWithoutCertificates: true
 
 security:
   authorization: enabled
-  keyFile: tls/keyfile.key
+  keyFile: tls/private/keyfile.key
 #  clusterAuthMode: x509
 
 setParameter:
