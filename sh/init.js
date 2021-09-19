@@ -1,5 +1,6 @@
 num_shards = 2;
-num_replicas = 1;
+num_replicas = 3;
+num_configs = 3;
 shard_replsetname_prefix = "rs";
 shard_starting_port = 27018;
 
@@ -35,17 +36,20 @@ s_host = hostname + s_port;
 
 // Set up CSRS
 c_replsetname = 'cs';
-c_port = 27016;
-c_host = hostname + c_port;
+c_starting_port = 27107;
+c_string = c_replsetname + "";
 c_config = {
-    _id: c_replsetname, members: [
-        {_id: 0, host: c_host}
-    ]
+    _id: c_replsetname, members: []
 };
+for (j = 0; j < num_configs; j++) {
+    let c_port = c_starting_port + j;
+    c_config.members[j] = {_id: j, host: hostname + c_port};
+    c_string = c_string + hostname + c_port + ",";
+}
 initialize_replica_set(c_replsetname, c_config);
 
 // Connect to the mongos, create admin user, authenticate as admin user
-sleep(4*1000); // give the mongos a chance to finish startup
+sleep(5*1000); // give the mongos a chance to finish startup
 // s_mongo = new Mongo(s_host);
 s_mongo = Mongo(s_host);
 s_adb = s_mongo.getDB('admin');
@@ -108,6 +112,10 @@ xdb.createUser(
         ]
     }
 );
+
+// temp to exit before adding data
+
+// exit();
 
 print("\nCreating sharded collection \"test.foo\" and pre-splitting chunks at \"a: 10\"");
 

@@ -1,4 +1,4 @@
-.idea/
+.idea
 tls
 keyfiles
 .terraform
@@ -9,4 +9,4 @@ rs/m*.yaml
 rs/init.js
 
 sh/shard*.yaml
-sh/config.yaml
+sh/config*.yaml

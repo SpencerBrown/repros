@@ -4,28 +4,28 @@ processManagement:
   fork: true
 
 storage:
-  dbPath: ../data/config
+  dbPath: ../data/--NODE--
   journal:
     enabled: true
   engine: wiredTiger
   wiredTiger:
     engineConfig:
-      cacheSizeGB: 0.5
+      cacheSizeGB: 0.3
 
 systemLog:
   destination: file
-  path: ../data/config.log
-  verbosity: 0
+  path: ../data/--NODE--.log
+  verbosity: 1
 
-auditLog:
-  destination: file
-  format: JSON
-  path: ../data/audit-config.log
-  filter: '{ atype: { $in: [ "createCollection", "dropCollection" ] } }'
+#auditLog:
+#  destination: file
+#  format: JSON
+#  path: ../data/audit_--NODE--.log
+#  filter: '{ atype: { $in: [ "createCollection", "dropCollection" ] } }'
 
 net:
   bindIp: 0.0.0.0
-  port: 27016
+  port: --PORT--
   unixDomainSocket:
     enabled: false
   ssl:
@@ -37,8 +37,8 @@ net:
 
 security:
   authorization: enabled
-#  clusterAuthMode: x509
-  keyFile: tls/private/keyfile.key
+  clusterAuthMode: x509
+#  keyFile: tls/private/keyfile.key
 
 setParameter:
     authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509

@@ -15,11 +15,11 @@ systemLog:
   path: ../data/--NODE--.log
   verbosity: 1
 
-auditLog:
-  destination: file
-  format: JSON
-  path: ../data/audit_--NODE--.log
-  filter: '{ atype: { $in: [ "createCollection", "dropCollection" ] } }'
+#auditLog:
+#  destination: file
+#  format: JSON
+#  path: ../data/audit_--NODE--.log
+#  filter: '{ atype: { $in: [ "createCollection", "dropCollection" ] } }'
 
 net:
   bindIp: 0.0.0.0
@@ -35,11 +35,11 @@ net:
 
 security:
   authorization: enabled
-#  clusterAuthMode: x509
-  keyFile: tls/private/keyfile.key
+  clusterAuthMode: x509
+#  keyFile: tls/private/keyfile.key
 
-#setParameter:
-#  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509
+setParameter:
+  authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509
 
 replication:
   replSetName: --CONFIG--
