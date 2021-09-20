@@ -1,6 +1,8 @@
-num_shards = 2;
-num_replicas = 3;
-num_configs = 3;
+// the following are passed in from s.sh
+// um_shards = 2;
+// num_replicas = 3;
+// num_configs = 3;
+
 shard_replsetname_prefix = "rs";
 shard_starting_port = 27018;
 

@@ -42,7 +42,7 @@ if [ $OP = "new" ]; then
 
   mongos -f "sh/router.yaml" &   # allow it to start asynchronously
 
-  mongosh --nodb sh/init.js $NUM_SHARDS $NUM_REPLICAS $NUM_CONFIGS
+  mongosh --nodb --eval "num_shards=$NUM_SHARDS, num_replicas = $NUM_REPLICAS, num_configs=$NUM_CONFIGS" sh/init.js
 
   mongosh --username admin --password tester --authenticationDatabase admin --host mongodb-local.computer:27017
   exit
