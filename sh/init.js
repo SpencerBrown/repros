@@ -27,10 +27,35 @@ function initialize_replica_set(name, config) {
 // hostname = getHostName() + ":";
 hostname = 'mongodb-local.computer' + ":";
 
+// set up users and roles in variables
+
 au = {
     user: 'admin',
     pwd: 'tester',
     roles: ['root']
+};
+
+tu = {
+    user: 'test',
+    pwd: 'tester',
+    roles: ['readWrite']
+};
+
+allrole = {
+    role: 'super',
+    roles: [],
+    privileges: [
+        {
+            resource: {anyResource: true},
+            actions: ['anyAction']
+        }
+    ]
+};
+
+alluser = {
+    user: "all",
+    pwd: 'tester',
+    roles: ['super']
 };
 
 s_port = 27017;
@@ -50,13 +75,29 @@ for (j = 0; j < num_configs; j++) {
 }
 initialize_replica_set(c_replsetname, c_config);
 
-// Connect to the mongos, create admin user, authenticate as admin user
+// Connect to the mongos, create users, authenticate as admin user
 sleep(5*1000); // give the mongos a chance to finish startup
 // s_mongo = new Mongo(s_host);
 s_mongo = Mongo(s_host);
 s_adb = s_mongo.getDB('admin');
 s_adb.createUser(au);
 s_adb.auth(au.user, au.pwd);
+
+tdb = s_adb.getSiblingDB('test');
+tdb.createUser(tu);
+
+s_adb.createRole(allrole);
+s_adb.createUser(alluser);
+
+xdb = s_adb.getSiblingDB('$external');
+xdb.createUser(
+    {
+        user: "CN=Client,OU=Public-Client,O=MongoDB",
+        roles: [
+            {role: "root", db: "admin"},
+        ]
+    }
+);
 
 // Set up shards
 for (i = 0; i < num_shards; i++) {
@@ -72,52 +113,11 @@ for (i = 0; i < num_shards; i++) {
     // let adb = new Mongo(primary).getDB('admin');
     let adb = Mongo(primary).getDB('admin');
     adb.createUser(au);  // create shard local user
+    adb.auth(au.user, au.pwd); // using localhost bypass
+    adb.createRole(allrole);
+    adb.createUser(alluser);
     s_adb.runCommand({addShard: shard_string.slice(0, -1) });
 }
-
-tu = {
-    user: 'test',
-    pwd: 'tester',
-    roles: ['readWrite']
-};
-
-tdb = s_adb.getSiblingDB('test');
-tdb.createUser(tu);
-
-allrole = {
-    role: 'super',
-    roles: [],
-    privileges: [
-        {
-            resource: {anyResource: true},
-            actions: ['anyAction']
-        }
-    ]
-};
-
-s_adb.createRole(allrole);
-
-alluser = {
-    user: "all",
-    pwd: 'tester',
-    roles: ['super']
-};
-
-s_adb.createUser(alluser);
-
-xdb = s_adb.getSiblingDB('$external');
-xdb.createUser(
-    {
-        user: "CN=Client,OU=Public-Client,O=MongoDB",
-        roles: [
-            {role: "root", db: "admin"},
-        ]
-    }
-);
-
-// temp to exit before adding data
-
-// exit();
 
 print("\nCreating sharded collection \"test.foo\" and pre-splitting chunks at \"a: 10\"");
 

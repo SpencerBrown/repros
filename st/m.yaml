@@ -24,7 +24,6 @@ security:
 setParameter:
   enableTestCommands: 1
   authenticationMechanisms: SCRAM-SHA-1,SCRAM-SHA-256,MONGODB-X509,PLAIN
-#  authenticationMechanisms: SCRAM-SHA-1,MONGODB-CR,MONGODB-X509
 
 net:
   bindIp: 0.0.0.0

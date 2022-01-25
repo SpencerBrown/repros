@@ -6,7 +6,7 @@ processManagement:
 systemLog:
   destination: file
   path: ../data/router.log
-  verbosity: 0
+  verbosity: 1
 
 #auditLog:
 #  destination: file
