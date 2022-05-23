@@ -2,7 +2,7 @@ processManagement:
   fork: true
 
 storage:
-  dbPath: ../data/--NODE--
+  dbPath: data/--NODE--
   journal:
     enabled: true
   engine: wiredTiger
@@ -12,7 +12,7 @@ storage:
 
 systemLog:
   destination: file
-  path: ../data/--NODE--.log
+  path: data/--NODE--.log
   verbosity: 1
 
 net:

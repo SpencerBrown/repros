@@ -4,7 +4,7 @@ processManagement:
   fork: true
 
 storage:
-  dbPath: ../data/m
+  dbPath: data/m
   journal:
     enabled: true
   engine: wiredTiger
@@ -15,7 +15,7 @@ storage:
 systemLog:
   destination: file
   logAppend: false
-  path: ../data/m.log
+  path: data/m.log
   verbosity: 1
 
 security:

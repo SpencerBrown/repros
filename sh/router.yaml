@@ -5,13 +5,13 @@ processManagement:
 
 systemLog:
   destination: file
-  path: ../data/router.log
+  path: data/router.log
   verbosity: 1
 
 #auditLog:
 #  destination: file
 #  format: JSON
-#  path: ../data/audit-router.log
+#  path: data/audit-router.log
 #  filter: '{ atype: { $in: [ "createCollection", "dropCollection" ] } }'
 
 net:

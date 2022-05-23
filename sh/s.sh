@@ -22,10 +22,10 @@ if [ $OP = "new" ]; then
 
   echo "Setting up new sharded cluster with $NUM_SHARDS shards with $NUM_REPLICAS members each and CSRS with $NUM_CONFIGS members"
 
-  mkdir -p ../data/router
+  mkdir -p data/router
 
   for ((J = 0; J < NUM_CONFIGS; J++)); do
-    mkdir -p "../data/config$J"
+    mkdir -p "data/config$J"
     PORT=$((27107  + J))
     sed "s/--NODE--/config$J/g; s/--PORT--/$PORT/g" "sh/xconfig-template.yaml" >"sh/config$J.yaml"
     mongod -f "sh/config$J.yaml"
@@ -33,7 +33,7 @@ if [ $OP = "new" ]; then
 
   for ((I = 0; I < NUM_SHARDS; I++)); do
     for ((J = 0; J < NUM_REPLICAS; J++)); do
-      mkdir -p "../data/shard$I$J"
+      mkdir -p "data/shard$I$J"
       PORT=$((27018 + (10 * I) + J))
       sed "s/--NODE--/shard$I$J/g; s/--PORT--/$PORT/g; s/--CONFIG--/rs$I/g" "sh/xshard-template.yaml" >"sh/shard$I$J.yaml"
       mongod -f "sh/shard$I$J.yaml"

@@ -1,6 +1,6 @@
 #systemLog:
 #  logAppend: false
-#  path: ../data/bic.log
+#  path: data/bic.log
 net:
   bindIp: 0.0.0.0
   port: 3307

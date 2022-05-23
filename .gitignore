@@ -1,12 +1,8 @@
 .idea
+.vscode
 tls
-keyfiles
-.terraform
-.terraform.lock.hcl
-terraform.tfstate*
-
+data/
 rs/m*.yaml
 rs/init.js
-
 sh/shard*.yaml
 sh/config*.yaml

@@ -2,7 +2,7 @@ processManagement:
   fork: true
 
 storage:
-  dbPath: ../data/--NODE--
+  dbPath: data/--NODE--
   journal:
     enabled: true
   engine: wiredTiger
@@ -12,13 +12,13 @@ storage:
 
 systemLog:
   destination: file
-  path: ../data/--NODE--.log
+  path: data/--NODE--.log
   verbosity: 1
 
 #auditLog:
 #  destination: file
 #  format: JSON
-#  path: ../data/audit_--NODE--.log
+#  path: data/audit_--NODE--.log
 #  filter: '{ atype: { $in: [ "createCollection", "dropCollection" ] } }'
 
 net:
