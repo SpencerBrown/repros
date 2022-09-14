@@ -35,8 +35,8 @@ net:
   port: 27017
   unixDomainSocket:
     enabled: false
-  ssl:
+  tls:
     mode: preferSSL
-    PEMKeyFile: tls/private/server-key-cert.pem
+    certificateKeyFile: tls/private/server-key-cert.pem
     CAFile: tls/ca-chain.pem
     allowConnectionsWithoutCertificates: true
