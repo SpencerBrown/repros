@@ -20,26 +20,19 @@ subject:
 
 # Create keyfiles; keyfiles are files with 32 random bytes stored in base64 format (44 bytes total)
 keyfiles:
-  - keyfile
+  keyfile: 
 
 # Create certificates and keys
 certificates:
   root-ca:
     type: rootCA
     subject:
-      O: MongoDB
       OU: Root-CA
-      CN: Repro
   signing-ca:
     type: intermediateCA
     issuer: root-ca
     subject:
       OU: Signing-CA
-  ocsp:
-    type: OCSPSigning
-    issuer: signing-ca
-    subject:
-      OU: OCSP Response Signing
   server:
     type: server
     issuer: signing-ca

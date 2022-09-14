@@ -53,7 +53,7 @@ esac
 echo Downloading MongoDB $OS $DISTRO $RELEASE $EDITION
 
 if [[ -z $DISTRO ]]; then
-    TARBALL_NAME=mongodb-$OS-$ARCH-$RELEASE
+    TARBALL_NAME=mongodb-macos-$ARCH-$RELEASE
 else
     TARBALL_NAME=mongodb-$OS-$ARCH-$DISTRO-$RELEASE
 fi
