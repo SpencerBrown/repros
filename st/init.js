@@ -32,12 +32,12 @@ tu = {
 adb = db.getSiblingDB('admin');
 adb.createUser(tu);
 
-print("\nSetting up user 'CN=Client,OU=Public-Client,O=MongoDB', for MongoDB X.509 client certificate authentication");
+print("\nSetting up user 'CN=Repro,OU=Client,O=MongoDB', for MongoDB X.509 client certificate authentication");
 
 xdb = db.getSiblingDB('$external');
 xdb.createUser(
     {
-        user: "CN=Client,OU=Public-Client,O=MongoDB",
+        user: "CN=Repro,OU=Client,O=MongoDB",
         roles: [
             {role: "root", db: "admin"},
         ]
