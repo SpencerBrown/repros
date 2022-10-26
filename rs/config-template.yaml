@@ -22,7 +22,7 @@ net:
     enabled: false
   tls:
     mode: preferTLS
-    CertificateKeyFile: tls/private/server-key-cert.pem
+    certificateKeyFile: tls/private/server-key-cert.pem
     CAFile: tls/ca-chain.pem
     allowConnectionsWithoutCertificates: true
 
