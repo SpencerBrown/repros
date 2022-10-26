@@ -20,9 +20,9 @@ net:
   bindIp: 0.0.0.0
   unixDomainSocket:
     enabled: false
-  ssl:
-    mode: preferSSL
-    PEMKeyFile: tls/private/server-key-cert.pem
+  tls:
+    mode: preferTLS
+    CertificateKeyFile: tls/private/server-key-cert.pem
     CAFile: tls/ca-chain.pem
     allowConnectionsWithoutCertificates: true
 
